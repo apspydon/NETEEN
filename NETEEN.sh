@@ -1110,16 +1110,16 @@ select_language() {
     echo "╔════════════════════════════════════════════╗"
     echo "               $(get_str 7)                   "
     echo "╠════════════════════════════════════════════╣"
-    echo "║  1) $(get_str 8)                            "
-    echo "║  2) $(get_str 9)                            "
-    echo "║  3) $(get_str 10)                           "
-    echo "║  4) $(get_str 11)                           "
-    echo "║  5) $(get_str 12)                           "
-    echo "║  6) $(get_str 13)                           "
-    echo "║  7) $(get_str 14)                           "
-    echo "║  8) $(get_str 15)                           "
-    echo "║  9) $(get_str 16)                           "
-    echo "║  10) $(get_str 17)                          "
+    echo "   1) $(get_str 8)                            "
+    echo "   2) $(get_str 9)                            "
+    echo "   3) $(get_str 10)                           "
+    echo "   4) $(get_str 11)                           "
+    echo "   5) $(get_str 12)                           "
+    echo "   6) $(get_str 13)                           "
+    echo "   7) $(get_str 14)                           "
+    echo "   8) $(get_str 15)                           "
+    echo "   9) $(get_str 16)                           "
+    echo "   10) $(get_str 17)                          "
     echo "╚════════════════════════════════════════════╝"
     echo -e "${NC}"
     
@@ -1191,12 +1191,12 @@ install_dependencies() {
 show_main_menu() {
     echo -e "${WHITE}"
     echo "╔════════════════════════════════════════════╗"
-    echo "║                 $(get_str 81)              ║"
+    echo "                  $(get_str 81)               "
     echo "╠════════════════════════════════════════════╣"
-    echo "║  1) $(get_str 1)                           ║"
-    echo "║  2) $(get_str 2)                           ║"
-    echo "║  3) $(get_str 101)                         ║"
-    echo "║  4) $(get_str 3)                           ║"
+    echo "   1) $(get_str 1)                            "
+    echo "   2) $(get_str 2)                            "
+    echo "   3) $(get_str 101)                          "
+    echo "   4) $(get_str 3)                            "
     echo "╚════════════════════════════════════════════╝"
     echo -e "${NC}"
 }
@@ -1205,7 +1205,7 @@ show_main_menu() {
 select_interface() {
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════╗"
-    echo "║          $(get_str 18)                     ║"
+    echo "           $(get_str 18)                      "
     echo "╠════════════════════════════════════════════╣"
     
     local interfaces=()
@@ -1247,10 +1247,10 @@ select_interface() {
 select_portal_type() {
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════╗"
-    echo "║             $(get_str 35)                  ║"
+    echo "              $(get_str 35)                   "
     echo "╠════════════════════════════════════════════╣"
-    echo "║  1) $(get_str 36)                          ║"
-    echo "║  2) $(get_str 37)                          ║"
+    echo "   1) $(get_str 36)                           "
+    echo "   2) $(get_str 37)                           "
     echo "╚════════════════════════════════════════════╝"
     echo -e "${NC}"
     
@@ -1286,13 +1286,13 @@ EOF
 select_theme() {
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════╗"
-    echo "║               $(get_str 40)                ║"
+    echo "                $(get_str 40)                 "
     echo "╠════════════════════════════════════════════╣"
-    echo "║  1) $(get_str 41)                          ║"
-    echo "║  2) $(get_str 42)                          ║"
-    echo "║  3) $(get_str 43)                          ║"
-    echo "║  4) $(get_str 44)                          ║"
-    echo "║  5) $(get_str 45)                          ║"
+    echo "   1) $(get_str 41)                           "
+    echo "   2) $(get_str 42)                           "
+    echo "   3) $(get_str 43)                           "
+    echo "   4) $(get_str 44)                           "
+    echo "   5) $(get_str 45)                           "
     echo "╚════════════════════════════════════════════╝"
     echo -e "${NC}"
     
@@ -1351,7 +1351,7 @@ select_theme() {
 customize_portal() {
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════╗"
-    echo "║           $(get_str 34)                    ║"
+    echo "            $(get_str 34)                     "
     echo "╠════════════════════════════════════════════╣"
     echo -e "${NC}"
     
@@ -1888,7 +1888,7 @@ stealth_portal() {
     
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════╗"
-    echo "║            $(get_str 84)                   ║"
+    echo "             $(get_str 84)                    "
     echo "╚════════════════════════════════════════════╝"
     echo -e "${NC}"
     
@@ -1906,7 +1906,7 @@ stealth_portal() {
     show_header
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════╗"
-    echo "║              $(get_str 65)                 ║"
+    echo "               $(get_str 65)                  "
     echo "╠════════════════════════════════════════════╣"
     printf "║  ${WHITE}SSID:${NC} %-35s ║\n" "$AP_NAME"
     printf "║  ${WHITE}$(get_str 66):${NC} %-28s ║\n" "$WIFI_IFACE"
