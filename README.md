@@ -73,7 +73,7 @@ These fundamentals form the basis of more advanced topics in cybersecurity, syst
 
 Features
 
-Multi-language interface (English, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Japanese, Arabic)
+Multi-language interface (English, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Japanese, Arabic...)
 
 Customizable demo portal (title, labels, colors, messages)
 
