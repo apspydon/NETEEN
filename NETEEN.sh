@@ -16,8 +16,10 @@ WHITE='\033[1;37m'
 NC='\033[0m'
 
 # Configuration
-CONFIG_FILE="/tmp/neteen.conf"
-LANG_FILE="/tmp/neteen_lang.conf"
+TEMP_DIR="/tmp/neteen_$(id -u)"
+mkdir -p "$TEMP_DIR" 2>/dev/null
+CONFIG_FILE="$TEMP_DIR/neteen.conf"
+LANG_FILE="$TEMP_DIR/neteen_lang.conf"
 
 # Global variables
 WIFI_IFACE=""
