@@ -1,126 +1,77 @@
-NETEEN – Network Assessment & Learning Tool
+# NETEEN — Educational Network & Captive Portal Lab (Bash)
 
-An educational Linux networking project created by a 14-year-old boy.
+> A hands-on Linux networking lab that demonstrates how Wi-Fi access points, DHCP, routing, and captive portals work — built as a personal learning project in Bash.
 
-Introduction
+NETEEN is an **educational Linux networking project** designed to help students and beginners understand how real-world network infrastructure works under the hood.
 
-NETEEN is an educational Bash-based tool focused on teaching the fundamentals of Linux networking, wireless interfaces, routing, and captive portal simulation.
-It was created as a learning project by a 14-year-old student passionate about cybersecurity, scripting, and system internals.
+It focuses on **learning**, not automation or real-world deployment.
 
-This repository is intended for individuals who want to study how access points work, how DHCP assigns addresses, how Apache serves pages, and how Bash can coordinate multiple system services.
+---
 
-NETEEN is not designed for malicious activity. It is intended strictly for controlled environments, private labs, and educational demonstrations.
+## 🎓 What NETEEN Teaches
 
-Legal and Ethical Notice
+NETEEN was created to explore and understand:
 
-NETEEN must only be used:
+### Linux & Networking
+- Wireless interfaces and AP (access point) mode
+- How `hostapd` creates Wi-Fi access points
+- DHCP address assignment with `dnsmasq`
+- Basic routing, NAT, and `iptables`
+- How captive portals redirect traffic
 
-On networks that you personally own
+### Bash Scripting
+- Large Bash projects and structure
+- Menu-driven terminal UI
+- Multilingual interfaces
+- Process management and cleanup
+- Signal handling (`trap`, background jobs)
 
-In private lab environments
+### Web Fundamentals
+- Basic HTML/CSS captive portal pages
+- PHP form handling
+- How a captive portal login flow works
 
-On systems where you have explicit written permission to test
+This project is intended as a **learning lab**, similar to what networking students build while studying system administration or cybersecurity fundamentals.
 
-With participants who understand the demonstration and provide consent
+---
 
-With fake or dummy credentials
+## ⚠️ Legal & Ethical Notice (Important)
 
-Use outside of these conditions can violate computer crime laws, privacy laws, and acceptable-use policies.
-The author and contributors do not assume responsibility for misuse.
+NETEEN is **strictly educational** and must only be used:
 
-The purpose of this tool is strictly educational.
-If you do not have legal authorization to test a network, do not use this software.
+- On networks you **own**
+- In **private lab environments**
+- With **explicit permission**
+- With **dummy or test data only**
 
-Educational Purpose
+This project is **not intended for malicious use**.
 
-This project is designed to help learners understand:
+If you do not have legal authorization to test a network, **do not use this software**.
 
-Linux and Networking
+The author and contributors assume **no responsibility for misuse**.
 
-Wireless interfaces and modes
+---
 
-How access points are configured
+## 🧪 Tested Environment
 
-DHCP ranges and client assignment
+- **Tested on:** Kali Linux  
+- **Likely compatible with:** Debian-based Linux distributions  
+  (Ubuntu, Debian, Parrot OS — advanced users)
 
-Basic NAT routing and iptables
+Requirements:
+- Wireless interface that supports AP mode
+- `hostapd`
+- `dnsmasq`
+- `apache2`
+- `php`
+- `iw`
 
-Bash Scripting
+---
 
-Multilingual menus
+## 📦 Installation
 
-UI structuring in terminal
-
-Arrays and localized string handling
-
-Background process management
-
-Signal traps and automated cleanup sequences
-
-Web Technologies
-
-HTML form structure
-
-Basic CSS styling
-
-PHP form handling inside Apache
-
-Writing simple POST handlers
-
-Structure of a basic captive portal
-
-These fundamentals form the basis of more advanced topics in cybersecurity, system engineering, and penetration testing.
-
-Features
-
-Multi-language interface (English, Spanish, French, German, Italian, Portuguese, Russian, Chinese, Japanese, Arabic...)
-
-Customizable demo portal (title, labels, colors, messages)
-
-Simple network scanner using iwlist
-
-Controlled access point simulation (for learning purposes only)
-
-Apache-based demo login page for educational demonstrations
-
-Automatic cleanup and process handling
-
-Designed specifically for Kali Linux
-
-Requirements
-
-Kali Linux (recommended environment)
-
-A wireless interface that supports AP mode
-
-The following packages:
-hostapd, dnsmasq, apache2, php, libapache2-mod-php, iw
-
-Install them as follows:
-
-sudo apt update
-sudo apt install hostapd dnsmasq apache2 php libapache2-mod-php iw -y
-
-Installation and Execution
-
-Clone the repository:
-
-git clone https://github.com/yourusername/NETEEN
+```bash
+git clone https://github.com/apspydon/NETEEN
 cd NETEEN
 chmod +x NETEEN.sh
-
-
-Run the tool (root privileges required):
-
 sudo ./NETEEN.sh
-
-
-Follow the on-screen menu to access:
-
-Stealth Portal (educational demonstration mode)
-
-Network Scanner
-
-Language Settings
-
-Exit
